@@ -47,6 +47,14 @@ public class SpellController {
 		return response;
 	}
 
+	@GetMapping("/lv/{level}")
+	public ResponseEntity<Spell> getSpellByLevel(@PathVariable("level") int level) {
+		Spell savedSpell = spellService.findByLevel(level);
+
+		ResponseEntity<Spell> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
+		return response;
+	}
+
 	@PostMapping
 	public ResponseEntity<Spell> createSpell(@Valid @RequestBody Spell spell) {
 		Spell savedSpell = spellService.create(spell);
