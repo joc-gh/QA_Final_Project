@@ -46,6 +46,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- IMPORTANT: Don't expose H2 on production (disable it) otherwise a vulnerability can be taken advantage of using the
+					    log4j vulnerability
+		 -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
