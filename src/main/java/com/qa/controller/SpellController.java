@@ -48,10 +48,18 @@ public class SpellController {
 	}
 
 	@GetMapping("/lv/{level}")
-	public ResponseEntity<Spell> getSpellByLevel(@PathVariable("level") int level) {
-		Spell savedSpell = spellService.findByLevel(level);
+	public ResponseEntity<List<Spell>> getSpellByLevel(@PathVariable("level") int level) {
+		List<Spell> savedSpell = spellService.getByLevel(level);
 
-		ResponseEntity<Spell> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
+		ResponseEntity<List<Spell>> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
+		return response;
+	}
+
+	@GetMapping("/school/{school}")
+	public ResponseEntity<List<Spell>> getSpellBySchool(@PathVariable("school") String school) {
+		List<Spell> savedSpell = spellService.getBySchool(school);
+
+		ResponseEntity<List<Spell>> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
 		return response;
 	}
 

@@ -29,8 +29,22 @@ public class SpellService {
 		});
 	}
 
-	public Spell getByLevel(int level) {
-		return spellRepository.findByLevel(level);
+//	public Spell getByLevel(int level) {
+//		return spellRepository.findByLevel(level).orElseThrow(() -> {
+//			return new SpellNotFoundException("Spell of level '" + level + "' cannot be found");
+//		});
+//	}
+
+	public List<Spell> getByLevel(int level) {
+		return spellRepository.findSpellByLevel(level).orElseThrow(() -> {
+			return new SpellNotFoundException("Spell of level '" + level + "' cannot be found");
+		});
+	}
+
+	public List<Spell> getBySchool(String school) {
+		return spellRepository.findSpellBySchool(school).orElseThrow(() -> {
+			return new SpellNotFoundException("Spell of the school '" + school + "' cannot be found");
+		});
 	}
 
 	public Spell create(Spell spell) {
@@ -56,11 +70,6 @@ public class SpellService {
 		} else {
 			throw new SpellNotFoundException("Spell with name '" + name + "' cannot be found");
 		}
-	}
-
-	public Spell findByLevel(int level) {
-		Spell spell = spellRepository.findByLevel(level);
-		return spell;
 	}
 
 }
