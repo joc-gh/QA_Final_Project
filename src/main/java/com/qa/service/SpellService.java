@@ -29,6 +29,10 @@ public class SpellService {
 		});
 	}
 
+	public Spell getByLevel(int level) {
+		return spellRepository.findByLevel(level);
+	}
+
 	public Spell create(Spell spell) {
 		Spell savedUser = spellRepository.save(spell);
 		return savedUser;
@@ -52,6 +56,11 @@ public class SpellService {
 		} else {
 			throw new SpellNotFoundException("Spell with name '" + name + "' cannot be found");
 		}
+	}
+
+	public Spell findByLevel(int level) {
+		Spell spell = spellRepository.findByLevel(level);
+		return spell;
 	}
 
 }

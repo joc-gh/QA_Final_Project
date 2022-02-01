@@ -8,4 +8,6 @@ import com.qa.data.entity.Spell;
 @Repository
 public interface SpellRepository extends JpaRepository<Spell, String> {
 
+	Spell findByLevel(int level);
+
 }
