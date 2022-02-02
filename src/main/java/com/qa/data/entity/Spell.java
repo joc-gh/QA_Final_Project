@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "spell")
-public class Spell implements Comparable<Spell> {
+public class Spell {
 
 	@Id
 	@NotNull
@@ -86,12 +86,6 @@ public class Spell implements Comparable<Spell> {
 		Spell other = (Spell) obj;
 		return Objects.equals(name, other.name) && Objects.equals(level, other.level)
 				&& Objects.equals(school, other.school);
-	}
-
-	@Override
-	public int compareTo(Spell o) {
-		// TODO Auto-generated method stub
-		return getName().compareToIgnoreCase(o.getName());
 	}
 
 }
