@@ -36,15 +36,11 @@ public class SpellService {
 //	}
 
 	public List<Spell> getByLevel(int level) {
-		return spellRepository.findSpellByLevel(level).orElseThrow(() -> {
-			return new SpellNotFoundException("Spell of level '" + level + "' cannot be found");
-		});
+		return spellRepository.findSpellByLevel(level);
 	}
 
 	public List<Spell> getBySchool(String school) {
-		return spellRepository.findSpellBySchool(school).orElseThrow(() -> {
-			return new SpellNotFoundException("Spell of the school '" + school + "' cannot be found");
-		});
+		return spellRepository.findSpellBySchool(school);
 	}
 
 	public Spell create(Spell spell) {
