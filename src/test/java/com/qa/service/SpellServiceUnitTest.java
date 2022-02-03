@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.qa.data.entity.Spell;
 import com.qa.data.repository.SpellRepository;
+import com.qa.exceptions.SpellNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 public class SpellServiceUnitTest {
@@ -77,16 +79,31 @@ public class SpellServiceUnitTest {
 
 	@Test
 	public void getByNameTest() {
-		String school = expectedSpell.getName();
+		String name = expectedSpell.getName();
 
-		when(spellRepository.findById(school)).thenReturn(Optional.of(expectedSpell));
-		assertThat(spellService.getByName(school)).isEqualTo(expectedSpell);
-		verify(spellRepository).findById(school);
+		when(spellRepository.findById(name)).thenReturn(Optional.of(expectedSpell));
+		assertThat(spellService.getByName(name)).isEqualTo(expectedSpell);
+		verify(spellRepository).findById(name);
+	}
+
+	@Test
+	public void getByNameInvalidTest() {
+		String name = "Afkjesgjskfj";
+
+		when(spellRepository.findById(name)).thenReturn(Optional.empty());
+
+		SpellNotFoundException snfe = Assertions.assertThrows(SpellNotFoundException.class, () -> {
+			spellService.getByName(name);
+		});
+
+		String expected = "Spell with name '" + name + "' cannot be found";
+		assertThat(snfe.getMessage()).isEqualTo(expected);
+
+		verify(spellRepository).findById(name);
 	}
 
 	@Test
 	public void getByLevelTest() {
-		// TODO
 		List<Spell> levelOrder = spells.stream().sorted(Comparator.comparing(Spell::getLevel))
 				.collect(Collectors.toList());
 		int level = expectedSpell.getLevel();
@@ -98,7 +115,6 @@ public class SpellServiceUnitTest {
 
 	@Test
 	public void getBySchoolTest() {
-		// TODO
 		List<Spell> schoolOrder = spells.stream().sorted(Comparator.comparing(Spell::getSchool))
 				.collect(Collectors.toList());
 		String school = expectedSpell.getSchool();
@@ -134,6 +150,22 @@ public class SpellServiceUnitTest {
 	}
 
 	@Test
+	public void updateSpellInvalidTest() {
+		String name = "Afkjesgjskfj";
+
+		when(spellRepository.existsById(name)).thenReturn(false);
+
+		SpellNotFoundException snfe = Assertions.assertThrows(SpellNotFoundException.class, () -> {
+			spellService.update(name, expectedSpell);
+		});
+
+		String expected = "Spell with name '" + name + "' cannot be found";
+		assertThat(snfe.getMessage()).isEqualTo(expected);
+
+		verify(spellRepository).existsById(name);
+	}
+
+	@Test
 	public void deleteSpellTest() {
 		String name = expectedSpell.getName();
 		when(spellRepository.existsById(name)).thenReturn(true);
@@ -144,5 +176,21 @@ public class SpellServiceUnitTest {
 
 		verify(spellRepository).existsById(name);
 		verify(spellRepository).deleteById(name);
+	}
+
+	@Test
+	public void deleteSpellInvalidTest() {
+		String name = "Afkjesgjskfj";
+
+		when(spellRepository.existsById(name)).thenReturn(false);
+
+		SpellNotFoundException snfe = Assertions.assertThrows(SpellNotFoundException.class, () -> {
+			spellService.delete(name);
+		});
+
+		String expected = "Spell with name '" + name + "' cannot be found";
+		assertThat(snfe.getMessage()).isEqualTo(expected);
+
+		verify(spellRepository).existsById(name);
 	}
 }
