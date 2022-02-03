@@ -31,13 +31,13 @@ public class SpellController {
 		this.spellService = spellService;
 	}
 
-//	@GetMapping
-//	public ResponseEntity<List<Spell>> getSpells() {
-//		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAll());
-//		return spells;
-//	}
+	@GetMapping
+	public ResponseEntity<List<Spell>> getSpells() {
+		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAll());
+		return spells;
+	}
 
-	@GetMapping()
+	@GetMapping("/name")
 	public ResponseEntity<List<Spell>> getSpellsByName() {
 		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAllByName());
 		return spells;
@@ -49,7 +49,7 @@ public class SpellController {
 		return spells;
 	}
 
-	@GetMapping("/name")
+	@GetMapping("/school")
 	public ResponseEntity<List<Spell>> getSpellsBySchool() {
 		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAllBySchool());
 		return spells;

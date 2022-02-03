@@ -3,7 +3,10 @@ package com.qa.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -41,6 +44,27 @@ public class SpellServiceIntegrationTest {
 	}
 
 	@Test
+	public void getAllByNameTest() {
+		List<Spell> nameOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getName))
+				.collect(Collectors.toList());
+		assertThat(nameOrder).isEqualTo(spellService.getAllByName());
+	}
+
+	@Test
+	public void getAllByLevelTest() {
+		List<Spell> levelOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getLevel))
+				.collect(Collectors.toList());
+		assertThat(levelOrder).isEqualTo(spellService.getAllByLevel());
+	}
+
+	@Test
+	public void getAllBySchoolTest() {
+		List<Spell> schoolOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getSchool))
+				.collect(Collectors.toList());
+		assertThat(schoolOrder).isEqualTo(spellService.getAllBySchool());
+	}
+
+	@Test
 	public void createSpellTest() {
 		Spell newSpell = new Spell("Scrying", 5, "Divination");
 		Spell expectedSpell = new Spell(newSpell.getName(), newSpell.getLevel(), newSpell.getSchool());
@@ -58,7 +82,6 @@ public class SpellServiceIntegrationTest {
 
 	@Test
 	public void getSpellByLevelTest() {
-		// TODO
 		List<Spell> expectedSpells = List.of(new Spell("Wish", 9, "Conjuration"),
 				new Spell("Prismatic Wall", 9, "Abjuration"));
 		int spellLevel = 9;
@@ -68,7 +91,6 @@ public class SpellServiceIntegrationTest {
 
 	@Test
 	public void getSpellBySchoolTest() {
-		// TODO
 		List<Spell> expectedSpells = List.of(new Spell("Blade Ward", 0, "Abjuration"),
 				new Spell("Prismatic Wall", 9, "Abjuration"));
 		String spellSchool = "Abjuration";
@@ -78,7 +100,21 @@ public class SpellServiceIntegrationTest {
 
 	@Test
 	public void updateSpellTest() {
-		// TODO
+		Spell updatedSpell = new Spell("Prismatic Wall", 7, "Necromancy");
+		Spell toUpdateWith = new Spell(7, "Necromancy");
+		String spellName = "Prismatic Wall";
+
+		assertThat(updatedSpell).isEqualTo(spellService.update(spellName, toUpdateWith));
+	}
+
+	@Test
+	public void deleteSpellTest() {
+		Spell expectedSpell = spellsInDb.get(0);
+		String spellName = expectedSpell.getName();
+
+		spellService.delete(spellName);
+
+		assertThat(spellRepository.findById(spellName)).isEqualTo(Optional.empty());
 	}
 
 }
