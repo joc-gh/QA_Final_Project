@@ -24,8 +24,8 @@ public class ApplicationStartupListener implements ApplicationListener<Applicati
 
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {
-		spellRepository.saveAll(List.of(new Spell("Dimension Door", 4, "Conjuration"),
-				new Spell("Booming Blade", 0, "Evocation"), new Spell("Foresight", 9, "Divination")));
+//		spellRepository.saveAll(List.of(new Spell("Dimension Door", 4, "Conjuration"),
+//				new Spell("Booming Blade", 0, "Evocation"), new Spell("Foresight", 9, "Divination")));
 	}
 
 }
