@@ -1,6 +1,8 @@
 package com.qa.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +25,45 @@ public class SpellService {
 		return spellRepository.findAll();
 	}
 
+	public List<Spell> getAllByName() {
+		List<Spell> spells = spellRepository.findAll();
+		List<Spell> nameOrder = spells.stream().sorted(Comparator.comparing(Spell::getName))
+				.collect(Collectors.toList());
+		return nameOrder;
+	}
+
+	public List<Spell> getAllByLevel() {
+		List<Spell> spells = spellRepository.findAll();
+		List<Spell> levelOrder = spells.stream().sorted(Comparator.comparing(Spell::getLevel))
+				.collect(Collectors.toList());
+		return levelOrder;
+	}
+
+	public List<Spell> getAllBySchool() {
+		List<Spell> spells = spellRepository.findAll();
+		List<Spell> schoolOrder = spells.stream().sorted(Comparator.comparing(Spell::getSchool))
+				.collect(Collectors.toList());
+		return schoolOrder;
+	}
+
 	public Spell getByName(String name) {
 		return spellRepository.findById(name).orElseThrow(() -> {
 			return new SpellNotFoundException("Spell with name '" + name + "' cannot be found");
 		});
 	}
 
-	public Spell getByLevel(int level) {
-		return spellRepository.findByLevel(level);
+//	public Spell getByLevel(int level) {
+//		return spellRepository.findByLevel(level).orElseThrow(() -> {
+//			return new SpellNotFoundException("Spell of level '" + level + "' cannot be found");
+//		});
+//	}
+
+	public List<Spell> getByLevel(int level) {
+		return spellRepository.findSpellByLevel(level);
+	}
+
+	public List<Spell> getBySchool(String school) {
+		return spellRepository.findSpellBySchool(school);
 	}
 
 	public Spell create(Spell spell) {
@@ -41,7 +74,6 @@ public class SpellService {
 	public Spell update(String name, Spell spell) {
 		if (spellRepository.existsById(name)) {
 			Spell spellInDb = spellRepository.getById(name);
-			spellInDb.setName(spell.getName());
 			spellInDb.setLevel(spell.getLevel());
 			spellInDb.setSchool(spell.getSchool());
 			return spellRepository.save(spellInDb);
@@ -56,11 +88,6 @@ public class SpellService {
 		} else {
 			throw new SpellNotFoundException("Spell with name '" + name + "' cannot be found");
 		}
-	}
-
-	public Spell findByLevel(int level) {
-		Spell spell = spellRepository.findByLevel(level);
-		return spell;
 	}
 
 }

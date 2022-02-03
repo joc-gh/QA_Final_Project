@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.data.entity.Spell;
@@ -36,10 +35,27 @@ public class SpellController {
 	public ResponseEntity<List<Spell>> getSpells() {
 		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAll());
 		return spells;
-
 	}
 
-	@RequestMapping(path = "/{name}", method = { RequestMethod.GET })
+	@GetMapping("/name")
+	public ResponseEntity<List<Spell>> getSpellsByName() {
+		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAllByName());
+		return spells;
+	}
+
+	@GetMapping("/lv")
+	public ResponseEntity<List<Spell>> getSpellsByLevel() {
+		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAllByLevel());
+		return spells;
+	}
+
+	@GetMapping("/school")
+	public ResponseEntity<List<Spell>> getSpellsBySchool() {
+		ResponseEntity<List<Spell>> spells = ResponseEntity.ok(spellService.getAllBySchool());
+		return spells;
+	}
+
+	@GetMapping("/{name}")
 	public ResponseEntity<Spell> getSpellByName(@PathVariable("name") String name) {
 		Spell savedSpell = spellService.getByName(name);
 
@@ -48,10 +64,18 @@ public class SpellController {
 	}
 
 	@GetMapping("/lv/{level}")
-	public ResponseEntity<Spell> getSpellByLevel(@PathVariable("level") int level) {
-		Spell savedSpell = spellService.findByLevel(level);
+	public ResponseEntity<List<Spell>> getSpellByLevel(@PathVariable("level") int level) {
+		List<Spell> savedSpell = spellService.getByLevel(level);
 
-		ResponseEntity<Spell> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
+		ResponseEntity<List<Spell>> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
+		return response;
+	}
+
+	@GetMapping("/school/{school}")
+	public ResponseEntity<List<Spell>> getSpellBySchool(@PathVariable("school") String school) {
+		List<Spell> savedSpell = spellService.getBySchool(school);
+
+		ResponseEntity<List<Spell>> response = ResponseEntity.status(HttpStatus.OK).body(savedSpell);
 		return response;
 	}
 

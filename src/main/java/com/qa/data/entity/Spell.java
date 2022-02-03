@@ -16,7 +16,6 @@ import org.hibernate.validator.constraints.Length;
 public class Spell {
 
 	@Id
-	@NotNull
 	@Length(min = 1, message = "Names cannot be empty")
 	private String name;
 
@@ -30,6 +29,13 @@ public class Spell {
 
 	public Spell() {
 		super();
+	}
+
+	public Spell(@Max(9) @Min(0) Integer level,
+			@NotNull @Length(min = 1, message = "School of magic cannot be empty") String school) {
+		super();
+		this.level = level;
+		this.school = school;
 	}
 
 	public Spell(@NotNull @Length(min = 1, message = "Names cannot be empty") String name,
