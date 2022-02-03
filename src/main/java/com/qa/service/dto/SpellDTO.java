@@ -2,11 +2,17 @@ package com.qa.service.dto;
 
 import java.util.Objects;
 
+import com.qa.data.entity.Spell;
+
 public class SpellDTO {
 
 	private String name;
-	private int level;
 	private String school;
+
+	public SpellDTO(Spell spell) {
+		this.name = spell.getName();
+		this.school = spell.getSchool();
+	}
 
 	public String getName() {
 		return name;
@@ -14,14 +20,6 @@ public class SpellDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	public String getSchool() {
@@ -34,7 +32,7 @@ public class SpellDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, level, school);
+		return Objects.hash(name, school);
 	}
 
 	@Override
@@ -46,8 +44,7 @@ public class SpellDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		SpellDTO other = (SpellDTO) obj;
-		return Objects.equals(name, other.name) && Objects.equals(level, other.level)
-				&& Objects.equals(school, other.school);
+		return Objects.equals(name, other.name) && Objects.equals(school, other.school);
 	}
 
 }
