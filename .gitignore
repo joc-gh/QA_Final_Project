@@ -25,4 +25,6 @@ hs_err_pid*
 #MySQL credentials
 /resources/dbconfig.properties/
 
+# For getting .jar file
+/target/*
 !/target/*.jar
