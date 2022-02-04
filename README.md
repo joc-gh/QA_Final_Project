@@ -1,5 +1,20 @@
 # Final Project - SpellTracker
 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#what-are-we-doing-and-why">What are we doing and why?</a> 
+    <li><a href="#how-i-expected-the-challenge-to-go">How I expected the challenge to go</a></li>
+    <li><a href="#what-went-well--what-went-not-so-well">What went well & not-so-well</a></li>
+    <li><a href="#possible-improvements-for-future-revisions-of-the-project">Possible improvements for future revisions of the project</a></li>
+    <li><a href="#postman--api-interactions">Postman & API interactions</a></li>
+    <li><a href="#persistent-database">Persistent database</a></li>
+    <li><a href="#test-results--coverage">Test results & coverage</a></li>
+    <li><a href="#jira-board">Jira board</a></li>
+    <li><a href="#special-thanks">Special thanks</a></li>
+  </ol>
+</details>
+
 ## What Are We Doing And Why?
 As a means of marking the end of this Software Development course with [QA](https://www.qa.com/) we are creating individual projects in order to showcase the skills which we have learned. The objective:
 
@@ -164,3 +179,11 @@ This provided testing coverage for */src/main/java/* of **94%**:
 Please find a link to this project's Jira Board [here](https://joshoc.atlassian.net/jira/software/projects/QFP/boards/2)!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+## Special Thanks
+
+This course has been a massively positive experience over the last three months.
+
+I would like to thank all of the QA trainers who have helped and guided me, they have been great. With regards to this final project, I would like to highlight Morgan Walsh in particular for always being happy to field questions and impart his knowledge.
+
+It could never have been as great without all of the other students. It's been a pleasure getting to know the cohort of DfESW7 and I wish all of them the very best in their future endeavours!
