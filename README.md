@@ -30,7 +30,7 @@ Making full use of QA's course resources and under the primary guidance of train
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##What Went Well & What Went Not-So-Well?
+## What Went Well & What Went Not-So-Well?
 
 Even as a solo project, being able to use the Agile methodology in a practical setting, complete with regular Scrum meetings and using Sprints, was both insightful and motivational.
 
