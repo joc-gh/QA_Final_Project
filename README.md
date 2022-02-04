@@ -187,3 +187,5 @@ This course has been a massively positive experience over the last three months.
 I would like to thank all of the QA trainers who have helped and guided me, they have been great. With regards to this final project, I would like to highlight Morgan Walsh in particular for always being happy to field questions and impart his knowledge.
 
 It could never have been as great without all of the other students. It's been a pleasure getting to know the cohort of DfESW7 and I wish all of them the very best in their future endeavours!
+
+<p align="right">(<a href="#top">back to top</a>)</p>
