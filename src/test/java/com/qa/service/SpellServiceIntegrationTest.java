@@ -29,6 +29,7 @@ public class SpellServiceIntegrationTest {
 	private SpellRepository spellRepository;
 
 	private List<Spell> spellsInDb;
+	private List<Spell> nameOrder;
 
 	@BeforeEach
 	public void init() {
@@ -36,30 +37,29 @@ public class SpellServiceIntegrationTest {
 				new Spell("Prismatic Wall", 9, "Abjuration"));
 		spellsInDb = new ArrayList<>();
 		spellsInDb.addAll(spellRepository.saveAll(spells));
+		nameOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getName)).collect(Collectors.toList());
 	}
 
 	@Test
 	public void getAllSpellsTest() {
-		assertThat(spellsInDb).isEqualTo(spellService.getAll());
+		assertThat(nameOrder).isEqualTo(spellService.getAllByName());
 	}
 
 	@Test
 	public void getAllByNameTest() {
-		List<Spell> nameOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getName))
-				.collect(Collectors.toList());
 		assertThat(nameOrder).isEqualTo(spellService.getAllByName());
 	}
 
 	@Test
 	public void getAllByLevelTest() {
-		List<Spell> levelOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getLevel))
+		List<Spell> levelOrder = nameOrder.stream().sorted(Comparator.comparing(Spell::getLevel))
 				.collect(Collectors.toList());
 		assertThat(levelOrder).isEqualTo(spellService.getAllByLevel());
 	}
 
 	@Test
 	public void getAllBySchoolTest() {
-		List<Spell> schoolOrder = spellsInDb.stream().sorted(Comparator.comparing(Spell::getSchool))
+		List<Spell> schoolOrder = nameOrder.stream().sorted(Comparator.comparing(Spell::getSchool))
 				.collect(Collectors.toList());
 		assertThat(schoolOrder).isEqualTo(spellService.getAllBySchool());
 	}
@@ -82,8 +82,8 @@ public class SpellServiceIntegrationTest {
 
 	@Test
 	public void getSpellByLevelTest() {
-		List<Spell> expectedSpells = List.of(new Spell("Wish", 9, "Conjuration"),
-				new Spell("Prismatic Wall", 9, "Abjuration"));
+		List<Spell> expectedSpells = List.of(new Spell("Prismatic Wall", 9, "Abjuration"),
+				new Spell("Wish", 9, "Conjuration"));
 		int spellLevel = 9;
 
 		assertThat(expectedSpells).isEqualTo(spellService.getByLevel(spellLevel));
