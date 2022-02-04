@@ -9,9 +9,7 @@ This will be achieved by producing a back-end developed application written in *
 
 To meet these goals I have decided to make an API which is capable of storing and manipulating some basic information about spells used in the Tabletop Role-Playing Game [Dungeons & Dragons](https://dnd.wizards.com/dungeons-and-dragons/what-is-dd).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-#### Scope & Minimum Viable Product
+### Scope & Minimum Viable Product
 * Code fully integrated into a Version Control System using the feature-branch model: main/dev/multiple features.
 * A project management board with full expansion on user stories, acceptance criteria and tasks needed to complete the project.
 * A risk assessment which outlines the issues and risks faced during the project timeframe.
@@ -56,13 +54,108 @@ There are multiple approaches which could be taken to improve upon this project:
 
 ## Postman & API Interactions
 
+In this section we will go through the Postman requests which can be sent and the responding outputs fro the API.
+
+### GET to show empty database - */spell*
+
+A simple GET request to show the database starting empty
+
+![PM Empty DB Start](https://user-images.githubusercontent.com/94961352/152522539-0841f820-def6-40e8-a990-91f6c8026536.png)
+
+### POST to create new spell - */spell*
+
+A request sent with the three required fields to construct a new Spell object in the database
+
+![PM POST Spell](https://user-images.githubusercontent.com/94961352/152523237-01611016-1003-4d49-a9f5-3d5a4fdd84f3.png)
+
+This request also has an extra header showing the new spell's location for finding it by name
+
+![PM POST Spell Headers](https://user-images.githubusercontent.com/94961352/152523368-634c505f-e490-4941-96e3-cf96412a0e55.png)
+
+### PUT to update spell info - */spell/{name}*
+
+Updates the level and school of the spell using the name primary key as the address. The response body contains the updated entry
+
+![PM PUT Spell](https://user-images.githubusercontent.com/94961352/152523723-9399aa17-c723-4c40-88b1-528a0e1077a4.png)
+
+### DELETE to remove spell - */spell/{name}*
+
+Removes spell entry from database, returns empty response body on success
+
+![PM DEL Spell](https://user-images.githubusercontent.com/94961352/152524218-24b5a992-267f-4f30-9ffa-2ad095bf9796.png)
+
+### GET by name - */spell/{name}*
+
+Find a spell from its name (PK)
+
+![PM GET by name](https://user-images.githubusercontent.com/94961352/152524768-940977cc-c57d-44c7-a68a-1680d42ae3d5.png)
+
+### GET by level - */spell/lv/{level}*
+
+Returns a list with all spells of the corresponding level
+
+![PM GET by lv](https://user-images.githubusercontent.com/94961352/152525718-a9bc668f-c256-4520-8a60-6e7c3a8e8c6f.png)
+
+### GET by school - */spell/school/{school}*
+
+Returns a list with all spells of the corresponding school
+
+![PM GET by school](https://user-images.githubusercontent.com/94961352/152525831-3ec88296-8ce1-4d73-869d-200738875fa9.png)
+
+### Custom Exception to any request by - */spell/{name}*
+
+When no entry can found with a matching name (PK), this exception is returned
+
+![PM Custom Exception](https://user-images.githubusercontent.com/94961352/152524528-396ecf8c-26bc-4592-93f6-14f7a323d2eb.png)
+
+### GET All spells - */spell* or */spell/name*
+
+Returns a response with all spells, listed alphabetically by name
+
+More data entries have been added at this point, refer to <a href="#persistent-database">Persistent Database</a> section)
+
+![PM Get ALL by name](https://user-images.githubusercontent.com/94961352/152525206-a6d0ac2d-adde-4819-8c90-e0bd77923ee8.png)
+
+### GET All spells by level - */spell/lv*
+
+Returns a list of all spells sorted in ascending numerical order of level, then alphabetically
+
+![PM GET ALL by lv](https://user-images.githubusercontent.com/94961352/152525399-161a4cda-4d36-49a3-8fba-89531ba114b2.png)
+
+### GET All spells by school - */spell/school*
+
+Returns a list of all spells sorted alphabetically by school, then name
+
+![PM GET ALL by school](https://user-images.githubusercontent.com/94961352/152525525-3b80a12a-4087-446c-838b-fafa4fb893fd.png)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Persistent Database
 
+This image shows the database used for the screenshots in this README.md, in MySQL and as a Postman GET request
+
+![SQL PM GET All](https://user-images.githubusercontent.com/94961352/152526104-86c86f79-bc16-49a0-a8eb-142dad466601.png)
+
+In this screenshot please note the Spring Boot API running and all table data being shown in MySQL:
+
+![Persistent DB start](https://user-images.githubusercontent.com/94961352/152520044-337d354e-e779-469e-a245-e141e5793151.png)
+
+Here you are able to note that the API has been stopped and a fresh query in MySQL still returns the same data, demonstrating persistence:
+
+![Persistent DB end](https://user-images.githubusercontent.com/94961352/152520068-83ec9ae9-179b-4e44-a5c2-381a6ad60e12.png)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Test Results & Coverage
+
+48 tests are run, none of which fail:
+
+![JUnitTests](https://user-images.githubusercontent.com/94961352/152520138-0d5d4170-4e3b-4edd-ba29-469c5571f062.png)
+
+This provided testing coverage for */src/main/java/* of **94%**:
+
+![TestCoverage](https://user-images.githubusercontent.com/94961352/152520148-8e898ebc-83bd-418c-a4f2-f745b73522a8.png)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
